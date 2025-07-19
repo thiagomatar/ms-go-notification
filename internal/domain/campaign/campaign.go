@@ -7,9 +7,25 @@ type Contact struct {
 }
 
 type Campaign struct {
-	ID        string    `json:"id"`
-	Name      string    `json:"name"`
-	CreatedOn time.Time `json:"created_at"`
-	Content   string    `json:"content"`
-	Contacts  []Contact `json:"contacts"`
+	ID        string
+	Name      string
+	CreatedOn time.Time
+	Content   string
+	Contacts  []Contact
+}
+
+func NewCampaign(id, name, content string, emails []string) *Campaign {
+
+	contacts := make([]Contact, len(emails))
+	for idx, email := range emails {
+		contacts[idx].Email = email
+	}
+
+	return &Campaign{
+		ID:        id,
+		Name:      name,
+		CreatedOn: time.Now(),
+		Content:   content,
+		Contacts:  contacts,
+	}
 }
