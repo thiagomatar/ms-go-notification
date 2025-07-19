@@ -1,3 +1,3 @@
-module ms-notification
+module ms-go-notification
 
 go 1.24
