@@ -1,47 +1,40 @@
 package campaign
 
 import (
-	"errors"
 	"github.com/rs/xid"
+	"ms-go-notification/internal/internal_errors"
 	"time"
 )
 
 type Contact struct {
-	Email string
+	Email string `validate:"email"`
 }
 
 type Campaign struct {
-	ID        string
-	Name      string
-	CreatedOn time.Time
-	Content   string
-	Contacts  []Contact
+	ID        string    `validate:"required"`
+	Name      string    `validate:"min=5,max=24"`
+	CreatedOn time.Time `validate:"required"`
+	Content   string    `validate:"min=5,max=1024"`
+	Contacts  []Contact `validate:"min=1,dive"`
 }
 
 func NewCampaign(name, content string, emails []string) (*Campaign, error) {
-
-	if name == "" {
-		return nil, errors.New("name is required")
-	}
-
-	if content == "" {
-		return nil, errors.New("content is required")
-	}
-
-	if len(emails) == 0 {
-		return nil, errors.New("contacts is required")
-	}
 
 	contacts := make([]Contact, len(emails))
 	for idx, email := range emails {
 		contacts[idx].Email = email
 	}
 
-	return &Campaign{
+	campaign := &Campaign{
 		ID:        xid.New().String(),
 		Name:      name,
 		CreatedOn: time.Now(),
 		Content:   content,
 		Contacts:  contacts,
-	}, nil
+	}
+	err := internal_errors.ValidateStruct(campaign)
+	if err != nil {
+		return nil, err
+	}
+	return campaign, nil
 }
