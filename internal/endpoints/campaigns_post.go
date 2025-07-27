@@ -1,33 +1,15 @@
 package endpoints
 
 import (
-	"errors"
 	"github.com/go-chi/render"
 	"ms-go-notification/internal/contract"
-	"ms-go-notification/internal/internal_errors"
 	"net/http"
 )
 
-func (h Handler) CreateCampaign(w http.ResponseWriter, r *http.Request) {
+func (h Handler) CampaignPost(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
 
 	var request contract.NewCampaignDTO
-	err := render.DecodeJSON(r.Body, &request)
-	if err != nil {
-		render.Status(r, http.StatusInternalServerError)
-		return
-	}
-
+	render.DecodeJSON(r.Body, &request)
 	id, err := h.CampaignService.Create(request)
-	if err != nil {
-		if errors.Is(err, internal_errors.ErrInternal) {
-			render.Status(r, http.StatusInternalServerError)
-		} else {
-			render.Status(r, http.StatusBadRequest)
-		}
-		render.JSON(w, r, map[string]string{"error": err.Error()})
-		return
-	}
-	render.Status(r, http.StatusCreated)
-	render.JSON(w, r, map[string]string{"id": id})
-
+	return map[string]string{"id": id}, 201, err
 }

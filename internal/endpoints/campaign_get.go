@@ -1,12 +1,10 @@
 package endpoints
 
 import (
-	"github.com/go-chi/render"
 	"net/http"
 )
 
-func (h Handler) CampaignGet(w http.ResponseWriter, r *http.Request) {
-	render.Status(r, http.StatusOK)
-	h.CampaignService.Repository.Get()
-	render.JSON(w, r, h.CampaignService.Repository.Get())
+func (h Handler) CampaignGet(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
+	campaigns, err := h.CampaignService.Repository.Get()
+	return campaigns, 200, err
 }

@@ -32,8 +32,8 @@ func main() {
 		CampaignService: campaignService,
 	}
 
-	r.Post("/campaigns", handler.CreateCampaign)
-	r.Get("/campaigns", handler.CampaignGet)
+	r.Post("/campaigns", endpoints.HandlerError(handler.CampaignPost))
+	r.Get("/campaigns", endpoints.HandlerError(handler.CampaignGet))
 
 	fmt.Println("Starting server on port 8080")
 	err := http.ListenAndServe(":8080", r)
