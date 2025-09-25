@@ -2,11 +2,12 @@ package campaign
 
 import (
 	"errors"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 	"ms-go-notification/internal/contract"
 	"ms-go-notification/internal/internal_errors"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 var (

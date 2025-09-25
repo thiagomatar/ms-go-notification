@@ -1,9 +1,10 @@
 package campaign
 
 import (
-	"github.com/rs/xid"
 	"ms-go-notification/internal/internal_errors"
 	"time"
+
+	"github.com/rs/xid"
 )
 
 type Contact struct {

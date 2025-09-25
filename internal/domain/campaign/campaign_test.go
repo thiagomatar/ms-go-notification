@@ -1,10 +1,11 @@
 package campaign
 
 import (
-	"github.com/jaswdr/faker"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/jaswdr/faker"
+	"github.com/stretchr/testify/assert"
 )
 
 var (

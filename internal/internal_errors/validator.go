@@ -3,8 +3,9 @@ package internal_errors
 import (
 	"errors"
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	"strings"
+
+	"github.com/go-playground/validator/v10"
 )
 
 func ValidateStruct(obj interface{}) error {
